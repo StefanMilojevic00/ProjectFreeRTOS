@@ -1,0 +1,33 @@
+!SESSION 2024-04-29 09:09:44.843 -----------------------------------------------
+eclipse.buildId=Version 1.15.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-04-29 09:10:32.738
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-04-29 09:10:32.748
+!MESSAGE Log4j2 initialized with config file C:\Users\Stevan.Milojevic\Desktop\Praksa2024FreeRTOS\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-04-29 09:10:36.881
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-04-29 09:13:06.903
+!MESSAGE Indexed 'AirQualityDetectorRTOS' (28 sources, 90 headers) in 9.65 sec: 7,794 declarations; 61,728 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0029%)
+!SESSION 2024-04-29 11:59:58.271 -----------------------------------------------
+eclipse.buildId=Version 1.15.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-04-29 12:00:20.750
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-04-29 12:00:20.758
+!MESSAGE Log4j2 initialized with config file C:\Users\Stevan.Milojevic\Desktop\Praksa2024FreeRTOS\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-04-29 12:00:30.326
+!MESSAGE Started RMI Server, listening on port 41337
