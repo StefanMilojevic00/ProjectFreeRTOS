@@ -19,6 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <stdbool.h>
 #include "LED_Handler.h"
 #include "GasSensor.h"
 #include "AlarmSystem.h"
@@ -26,10 +30,6 @@
 #include "SignalSystem.h"
 #include "AirQualityIndicator.h"
 #include "UART_CommandSystem.h"
-
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -85,6 +85,11 @@ osTimerId_t TransmitTimerHandle;
 const osTimerAttr_t TransmitTimer_attributes = {
   .name = "TransmitTimer"
 };
+/* Definitions for ButtonTimer */
+osTimerId_t ButtonTimerHandle;
+const osTimerAttr_t ButtonTimer_attributes = {
+  .name = "ButtonTimer"
+};
 /* Definitions for RegimeMutex */
 osMutexId_t RegimeMutexHandle;
 const osMutexAttr_t RegimeMutex_attributes = {
@@ -115,6 +120,7 @@ void StartTerminalTask(void *argument);
 void StartButtonTask(void *argument);
 void LEDTimerCallback(void *argument);
 void TransmitTimerCallback(void *argument);
+void ButtonTimerCallback(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -187,6 +193,9 @@ int main(void)
 
   /* creation of TransmitTimer */
   TransmitTimerHandle = osTimerNew(TransmitTimerCallback, osTimerPeriodic, NULL, &TransmitTimer_attributes);
+
+  /* creation of ButtonTimer */
+  ButtonTimerHandle = osTimerNew(ButtonTimerCallback, osTimerOnce, NULL, &ButtonTimer_attributes);
 
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
@@ -972,6 +981,14 @@ void TransmitTimerCallback(void *argument)
   /* USER CODE BEGIN TransmitTimerCallback */
 
   /* USER CODE END TransmitTimerCallback */
+}
+
+/* ButtonTimerCallback function */
+void ButtonTimerCallback(void *argument)
+{
+  /* USER CODE BEGIN ButtonTimerCallback */
+
+  /* USER CODE END ButtonTimerCallback */
 }
 
 /**
