@@ -1,0 +1,10 @@
+#include "Variables.h"
+
+void DevicesInit()
+{
+	AlarmInit();
+	SignalSystemInit();
+	AirQualityIncicatorInit();
+	LED_init();
+	TerminalInit(&huart1);
+}
