@@ -10,6 +10,7 @@
 "./Core/Src/SignalSystem.o"
 "./Core/Src/UART.o"
 "./Core/Src/UART_CommandSystem.o"
+"./Core/Src/Variables.o"
 "./Core/Src/freertos.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f7xx_hal_msp.o"

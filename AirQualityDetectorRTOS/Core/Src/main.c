@@ -22,14 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdbool.h>
-#include "LED_Handler.h"
-#include "GasSensor.h"
-#include "AlarmSystem.h"
-#include "UART.h"
-#include "SignalSystem.h"
-#include "AirQualityIndicator.h"
-#include "UART_CommandSystem.h"
+
+#include "Variables.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -124,6 +119,74 @@ void ButtonTimerCallback(void *argument);
 
 /* USER CODE BEGIN PFP */
 
+
+bool SysTickFlag = false;
+volatile bool readFlag = true;
+volatile float PPM;
+
+// For UART commands
+uint16_t cmd_find = 0;
+const uint16_t len_of_array = 20;
+
+
+
+
+
+//Messages for sending
+static char IdleMSG[] = "System waits for configuration";
+static char PPM_MSG[] = "PPM = ";
+static char AlertMSG[] = "Dangerous leves of PPM in the room";
+static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+static char S1WorkStateMSG[] = "S1 work regime selected";
+static char S3WorkStateMSG[] = "S3 work regime selected";
+static char S5WorkStateMSG[] = "S5 work regime selected";
+static char FAN_ON[] = "FAN started";
+static char FAN_OFF[] = "FAN stoped";
+static char ErrorMSG[] = "Unknown command, type HELP to see all commands";
+
+// Structs //
+
+
+char* cmdStrings[] = {
+
+	//	"INVALID_COMMAND", // cmd_0
+
+		"IDLE\r",			 // cmd_0
+		"WORK_S1\r",	 	 // cmd_1
+		"WORK_S3\r",		 // cmd_2
+		"WORK_S5\r",		 // cmd_3
+
+		"READ_MQ_SENSOR\r",	 // cmd_4
+
+		"SEND_MQ_DATA\r",	 // cmd_5
+
+		"FAN_ON\r",		     // cmd_6
+		"FAN_OFF\r",		 // cmd_7
+
+		"ALARM_ON\r",	   	 // cmd_8
+		"ALARM_OFF\r",  	 // cmd_9
+
+		"LED_ON\r",		     // cmd_10
+		"LED_OFF\r",		 // cmd_11
+
+		"SEGMENT_0\r",		 // cmd_12
+		"SEGMENT_1\r",		 // cmd_13
+		"SEGMENT_2\r",	   	 // cmd_14
+		"SEGMENT_3\r",		 // cmd_15
+		"SEGMENT_4\r",		 // cmd_16
+		"SEGMENT_5\r",		 // cmd_17
+		"SEGMENT_6\r", 		 // cmd_18
+
+		"HELP\r", 	 		 // cmd_19
+
+};
+
+// FSMs //
+ProgramStateFSM progState = P_IDLE_START;
+CountingTasterFSM countState = C_IDLE;
+LED_StatusFSM ledState = LED_OFF;
+UART_commandsFSM uartCmdState;
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -164,6 +227,8 @@ int main(void)
   MX_CRC_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  DevicesInit(); // This Method initialize whole app system
 
   /* USER CODE END 2 */
 
@@ -920,7 +985,7 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartMainTask */
-void StartMainTask(void *argument)
+void StartMainTask(void *argument) // TODO: citanje sa senzoraea, alrm...
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
@@ -938,7 +1003,7 @@ void StartMainTask(void *argument)
 * @retval None
 */
 /* USER CODE END Header_StartTerminalTask */
-void StartTerminalTask(void *argument)
+void StartTerminalTask(void *argument)  // FSM za komande sa terminala
 {
   /* USER CODE BEGIN StartTerminalTask */
   /* Infinite loop */
@@ -956,7 +1021,7 @@ void StartTerminalTask(void *argument)
 * @retval None
 */
 /* USER CODE END Header_StartButtonTask */
-void StartButtonTask(void *argument)
+void StartButtonTask(void *argument) // Biranje moda
 {
   /* USER CODE BEGIN StartButtonTask */
   /* Infinite loop */
@@ -968,7 +1033,7 @@ void StartButtonTask(void *argument)
 }
 
 /* LEDTimerCallback function */
-void LEDTimerCallback(void *argument)
+void LEDTimerCallback(void *argument) // Led Driver
 {
   /* USER CODE BEGIN LEDTimerCallback */
 
@@ -976,7 +1041,7 @@ void LEDTimerCallback(void *argument)
 }
 
 /* TransmitTimerCallback function */
-void TransmitTimerCallback(void *argument)
+void TransmitTimerCallback(void *argument) // RefRate
 {
   /* USER CODE BEGIN TransmitTimerCallback */
 
@@ -984,7 +1049,7 @@ void TransmitTimerCallback(void *argument)
 }
 
 /* ButtonTimerCallback function */
-void ButtonTimerCallback(void *argument)
+void ButtonTimerCallback(void *argument) // 3 sec
 {
   /* USER CODE BEGIN ButtonTimerCallback */
 
