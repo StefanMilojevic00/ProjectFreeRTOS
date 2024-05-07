@@ -90,15 +90,20 @@ osMutexId_t RegimeMutexHandle;
 const osMutexAttr_t RegimeMutex_attributes = {
   .name = "RegimeMutex"
 };
-/* Definitions for RefRateMutex */
-osMutexId_t RefRateMutexHandle;
-const osMutexAttr_t RefRateMutex_attributes = {
-  .name = "RefRateMutex"
+/* Definitions for LED_Blink_Mutex */
+osMutexId_t LED_Blink_MutexHandle;
+const osMutexAttr_t LED_Blink_Mutex_attributes = {
+  .name = "LED_Blink_Mutex"
 };
 /* Definitions for UARTMutex */
 osMutexId_t UARTMutexHandle;
 const osMutexAttr_t UARTMutex_attributes = {
   .name = "UARTMutex"
+};
+/* Definitions for LED_FSM_Mutex */
+osMutexId_t LED_FSM_MutexHandle;
+const osMutexAttr_t LED_FSM_Mutex_attributes = {
+  .name = "LED_FSM_Mutex"
 };
 /* USER CODE BEGIN PV */
 
@@ -120,13 +125,20 @@ void ButtonTimerCallback(void *argument);
 /* USER CODE BEGIN PFP */
 
 
-bool SysTickFlag = false;
-volatile bool readFlag = true;
-volatile float PPM;
+// Button variables //
+volatile uint8_t button_press_counter = 0;
+// END Button variables //
 
-// For UART commands
+
+// Read parameters variables //
+volatile float PPM;
+volatile bool quality_status;
+// END Read parameters variables //
+
+// For UART commands //
 uint16_t cmd_find = 0;
 const uint16_t len_of_array = 20;
+// END For UART commands //
 
 
 
@@ -148,8 +160,6 @@ static char ErrorMSG[] = "Unknown command, type HELP to see all commands";
 
 
 char* cmdStrings[] = {
-
-	//	"INVALID_COMMAND", // cmd_0
 
 		"IDLE\r",			 // cmd_0
 		"WORK_S1\r",	 	 // cmd_1
@@ -229,6 +239,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   DevicesInit(); // This Method initialize whole app system
+  LED_Drive(true);
+  osTimerStop(ButtonTimerHandle);
+  osTimerStart(LEDTimerHandle, 3000);
 
   /* USER CODE END 2 */
 
@@ -238,11 +251,14 @@ int main(void)
   /* creation of RegimeMutex */
   RegimeMutexHandle = osMutexNew(&RegimeMutex_attributes);
 
-  /* creation of RefRateMutex */
-  RefRateMutexHandle = osMutexNew(&RefRateMutex_attributes);
+  /* creation of LED_Blink_Mutex */
+  LED_Blink_MutexHandle = osMutexNew(&LED_Blink_Mutex_attributes);
 
   /* creation of UARTMutex */
   UARTMutexHandle = osMutexNew(&UARTMutex_attributes);
+
+  /* creation of LED_FSM_Mutex */
+  LED_FSM_MutexHandle = osMutexNew(&LED_FSM_Mutex_attributes);
 
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
@@ -985,7 +1001,7 @@ static void MX_GPIO_Init(void)
   * @retval None
   */
 /* USER CODE END Header_StartMainTask */
-void StartMainTask(void *argument) // TODO: citanje sa senzoraea, alrm...
+void StartMainTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
@@ -1003,7 +1019,7 @@ void StartMainTask(void *argument) // TODO: citanje sa senzoraea, alrm...
 * @retval None
 */
 /* USER CODE END Header_StartTerminalTask */
-void StartTerminalTask(void *argument)  // FSM za komande sa terminala
+void StartTerminalTask(void *argument)
 {
   /* USER CODE BEGIN StartTerminalTask */
   /* Infinite loop */
@@ -1021,27 +1037,122 @@ void StartTerminalTask(void *argument)  // FSM za komande sa terminala
 * @retval None
 */
 /* USER CODE END Header_StartButtonTask */
-void StartButtonTask(void *argument) // Biranje moda
+void StartButtonTask(void *argument)
 {
   /* USER CODE BEGIN StartButtonTask */
   /* Infinite loop */
+	bool read_button_flag = true;
+	bool press_button_flag = false;
+
   for(;;)
   {
-    osDelay(1);
+	press_button_flag = ReadSignal(&read_button_flag);
+    if(press_button_flag == true)
+    {
+    	char* uslo_1 = "Uslo u Button Count\n";
+
+
+    	UART_TransmitString(uslo_1);
+    	LED_Drive(true);
+    	osTimerStart(ButtonTimerHandle, 3000);
+    	button_press_counter++;
+    	if(button_press_counter==0)UART_TransmitString("0\n");
+    	else if(button_press_counter==1)UART_TransmitString("1\n");
+    	else if(button_press_counter==2)UART_TransmitString("2\n");
+
+    	UART_TransmitFloat((float)button_press_counter);
+    	char* newLinen = "\n";
+    	UART_TransmitString(newLinen);
+    	press_button_flag = false;
+    }
+
+    osMutexAcquire(RegimeMutexHandle, osWaitForever);
+//	progStateLocal = progState;
+	osMutexRelease(RegimeMutexHandle);
+    osDelay(10);
   }
   /* USER CODE END StartButtonTask */
 }
 
 /* LEDTimerCallback function */
-void LEDTimerCallback(void *argument) // Led Driver
+void LEDTimerCallback(void *argument)
 {
   /* USER CODE BEGIN LEDTimerCallback */
+	//osTimerStop(LEDTimerHandle);
+
+	//LED_StatusFSM ledStateLocal = ledState;
+	bool quality_status_local;
+	ProgramStateFSM progStateLocal;
+	LED_StatusFSM ledStateLocal;
+
+	char* newLine = "Uslo\n";
+
+	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
+		quality_status_local = quality_status;
+	osMutexRelease(LED_Blink_MutexHandle);
+
+	osMutexAcquire(RegimeMutexHandle, osWaitForever);
+		progStateLocal = progState;
+	osMutexRelease(RegimeMutexHandle);
+
+	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
+		ledStateLocal = ledState;
+	osMutexRelease(LED_FSM_MutexHandle);
+
+
+	if( (progStateLocal == P_IDLE_START) || (progStateLocal == P_IDLE) )
+	{
+		osTimerStop(LEDTimerHandle);
+		LED_Drive(false);
+	}
+	else
+	{
+		switch(ledStateLocal)
+		{
+			case LED_OFF:
+				void AlarmOFF();
+				osTimerStart(LEDTimerHandle, 3000);
+				LED_Drive(false);
+				if(quality_status_local == true)
+				{
+					ledStateLocal = LED_ON_CORECT;
+				}
+				else
+				{
+					ledStateLocal = LED_ON_INCORECT;
+				}
+
+				break;
+
+			case LED_ON_CORECT:
+				void AlarmON();
+				LED_Drive(true);
+				osTimerStart(LEDTimerHandle, 1000);
+				ledStateLocal = LED_OFF;
+
+				break;
+
+			case LED_ON_INCORECT:
+
+				void AlarmON();
+				LED_Drive(true);
+				osTimerStart(LEDTimerHandle, 500);
+				ledStateLocal = LED_OFF;
+
+				break;
+		}
+	}
+	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
+		ledState = ledStateLocal;
+	osMutexRelease(LED_FSM_MutexHandle);
+
+	//LED_Blink_MutexHandle
 
   /* USER CODE END LEDTimerCallback */
 }
 
 /* TransmitTimerCallback function */
-void TransmitTimerCallback(void *argument) // RefRate
+void TransmitTimerCallback(void *argument)
 {
   /* USER CODE BEGIN TransmitTimerCallback */
 
@@ -1049,10 +1160,60 @@ void TransmitTimerCallback(void *argument) // RefRate
 }
 
 /* ButtonTimerCallback function */
-void ButtonTimerCallback(void *argument) // 3 sec
+void ButtonTimerCallback(void *argument)
 {
   /* USER CODE BEGIN ButtonTimerCallback */
+	ProgramStateFSM progStateLocal = P_IDLE_START;
+	LED_Drive(false);
+	SetIndicatorLEDsNum(button_press_counter);
 
+	switch(button_press_counter)
+	{
+		case 0:
+
+			progStateLocal = P_IDLE_START;
+
+			break;
+
+		case 1:
+
+			progStateLocal = P_WORK_S1;
+
+			break;
+
+		case 2:
+
+			progStateLocal = P_WORK_S3;
+
+			break;
+
+		case 3:
+
+			progStateLocal = P_WORK_S5;
+
+			break;
+
+		case 4:
+
+			break;
+
+		case 5:
+
+			progStateLocal = P_IDLE_START;
+
+			break;
+
+	}
+
+	button_press_counter = 0;
+
+    osMutexAcquire(RegimeMutexHandle, osWaitForever);
+    	progState = progStateLocal;
+	osMutexRelease(RegimeMutexHandle);
+
+   osTimerStop(ButtonTimerHandle);
+
+//	bool ReadSignal(bool* readEnable)
   /* USER CODE END ButtonTimerCallback */
 }
 
@@ -1067,6 +1228,7 @@ void ButtonTimerCallback(void *argument) // 3 sec
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
+
 
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM14) {
