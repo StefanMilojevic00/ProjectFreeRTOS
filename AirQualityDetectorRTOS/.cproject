@@ -183,6 +183,7 @@
 			<autodiscovery enabled="false" problemReportingEnabled="true" selectedProfileId=""/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+<<<<<<< HEAD
 	<storageModule moduleId="refreshScope" versionNumber="2">
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/AirQualityDetectorRTOS"/>
@@ -191,4 +192,7 @@
 			<resource resourceType="PROJECT" workspacePath="/AirQualityDetectorRTOS"/>
 		</configuration>
 	</storageModule>
+=======
+	<storageModule moduleId="refreshScope"/>
+>>>>>>> master
 </cproject>

@@ -57,10 +57,13 @@ typedef struct
 
 //FSM to handle the states in which the system works
 typedef enum {P_IDLE, P_IDLE_START, P_WORK_S1, P_WORK_S3, P_WORK_S5} ProgramStateFSM;
+
 //FSM to count the time and set needed flags for action
 typedef enum {C_IDLE, C_START, C_END} CountingTasterFSM;
+
 //FSM to control single LED
 typedef enum {LED_OFF, LED_ON_CORECT, LED_ON_INCORECT} LED_StatusFSM;
+
 //FSM to handle system work state based on the command input from UART
 typedef enum {cmd_0, cmd_1, cmd_2, cmd_3, cmd_4, cmd_5, cmd_6, cmd_7, cmd_8, cmd_9, cmd_10,cmd_11,
 			  cmd_12, cmd_13, cmd_14, cmd_15, cmd_16, cmd_17, cmd_18, cmd_19, cmd_20} UART_commandsFSM;
