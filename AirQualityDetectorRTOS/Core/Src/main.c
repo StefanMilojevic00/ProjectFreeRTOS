@@ -34,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define DangerousPPM 2200
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -124,11 +124,9 @@ void ButtonTimerCallback(void *argument);
 
 /* USER CODE BEGIN PFP */
 
-
 // Button variables //
 volatile uint8_t button_press_counter = 0;
 // END Button variables //
-
 
 // Read parameters variables //
 volatile float PPM;
@@ -1004,10 +1002,96 @@ static void MX_GPIO_Init(void)
 void StartMainTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+	//Setup code
+	ProgramStateFSM progStateLocal;
+	float PPMValue;
+	bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+	bool meassuring = false;
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  osMutexAcquire(RegimeMutexHandle, osWaitForever);
+	  progStateLocal = progState;
+	  osMutexRelease(RegimeMutexHandle);
+
+	  PPMValue = ReadGasSensor();
+
+	  switch(progStateLocal)
+	  {
+	  	  case P_IDLE_START:
+	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
+	  		  HelpSendUART(len_of_array, cmdStrings);
+	  		  UART_TransmitString(IdleMSG);
+	  		  osMutexRelease(UARTMutexHandle);
+
+	  		  osMutexAcquire(RegimeMutexHandle, osWaitForever);
+	  		  progState = P_IDLE;
+	  		  osMutexRelease(RegimeMutexHandle);
+
+	  		  meassuring = false;
+		  break;
+
+	  	  case P_IDLE:
+	  		  //System waits for configuration
+	  		  meassuring = false;
+		  break;
+
+	  	  case P_WORK_S1:
+	  		  meassuring = true;
+	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
+	  		  UART_TransmitString(PPM_MSG);
+	  		  UART_TransmitFloat(PPMValue);
+	  		  osMutexRelease(UARTMutexHandle);
+	  		  osDelay(1000);
+		  break;
+
+	  	  case P_WORK_S3:
+	  		  meassuring = true;
+	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
+	  		  UART_TransmitString(PPM_MSG);
+	  		  UART_TransmitFloat(PPMValue);
+	  		  osMutexRelease(UARTMutexHandle);
+	  		  osDelay(3000);
+		  break;
+
+	  	  case P_WORK_S5:
+	  		  meassuring = true;
+	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
+	  		  UART_TransmitString(PPM_MSG);
+	  		  UART_TransmitFloat(PPMValue);
+	  		  osMutexRelease(UARTMutexHandle);
+	  		  osDelay(5000);
+		  break;
+	  }
+
+	  //Take action
+	  //Setting the indicator system
+	  if(meassuring == true)
+	  {
+		  SetIndicatorLEDs(PPMValue);
+	  }
+
+	  //Check for contamination
+	  if(PPMValue > DangerousPPM)
+	  {
+		  osMutexAcquire(UARTMutexHandle, osWaitForever);
+		  UART_TransmitString(AlertMSG);
+		  osMutexRelease(UARTMutexHandle);
+		  sentAlarmMSG = true;
+		  AlarmON();
+	  }
+	  else
+	  {
+		  AlarmOFF();
+		  if(sentAlarmMSG == true)
+		  {
+			  osMutexAcquire(UARTMutexHandle, osWaitForever);
+			  UART_TransmitString(RoomClearedMSG);
+			  osMutexRelease(UARTMutexHandle);
+			  sentAlarmMSG = false; // to be avaliable for next time danger happens
+		  }
+	  }
+
   }
   /* USER CODE END 5 */
 }
@@ -1022,10 +1106,194 @@ void StartMainTask(void *argument)
 void StartTerminalTask(void *argument)
 {
   /* USER CODE BEGIN StartTerminalTask */
+	//setup
+	ProgramStateFSM progStateLocal;
+	UART_commandsFSM uartCmdState;
+	uint16_t CommandIndex;
+	bool CommandStatus;
+	float LocalPPM;
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	  if(IsTransferComplete() == true)
+	  {
+		  CommandStatus = StringCompareFromUART(GetRxBuffer(), cmdStrings, len_of_array, &CommandIndex);
+		  if(CommandStatus == false)
+		  {
+			  UART_TransmitString(ErrorMSG);
+			  ClearRxBuffer();
+			  osMutexAcquire(UARTMutexHandle, osWaitForever);
+			  HelpSendUART(len_of_array, cmdStrings);
+			  osMutexRelease(UARTMutexHandle);
+			  progStateLocal = P_IDLE;
+		  }
+		  else
+		  {
+			  ClearRxBuffer();
+				uartCmdState = CommandIndex;
+
+				switch(uartCmdState)
+				{
+					case cmd_0:
+
+						progStateLocal = P_IDLE_START;
+
+						break;
+
+					case cmd_1:
+
+						progStateLocal = P_WORK_S1;
+						UART_TransmitString(S1WorkStateMSG);
+
+						break;
+
+					case cmd_2:
+
+						progStateLocal = P_WORK_S3;
+						UART_TransmitString(S3WorkStateMSG);
+
+						break;
+
+					case cmd_3:
+
+						progStateLocal = P_WORK_S5;
+						UART_TransmitString(S5WorkStateMSG);
+
+						break;
+
+					case cmd_4:
+
+						LocalPPM = ReadGasSensor();
+
+						break;
+
+					case cmd_5:
+
+						UART_TransmitString(PPM_MSG);
+						UART_TransmitFloat(LocalPPM);
+
+						break;
+
+
+					case cmd_6:
+
+						UART_TransmitString(FAN_ON);
+
+
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_7:
+
+						UART_TransmitString(FAN_OFF);
+						progStateLocal = P_IDLE;
+
+						break;
+
+
+					case cmd_8:
+
+						AlarmON();
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_9:
+
+						AlarmOFF();
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_10:
+
+						LED_Drive(true);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_11:
+
+						LED_Drive(false);
+						progStateLocal = P_IDLE;
+
+						break;
+
+
+					case cmd_12:
+
+						SetIndicatorLEDsNum(0);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_13:
+
+						SetIndicatorLEDsNum(1);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_14:
+
+						SetIndicatorLEDsNum(2);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_15:
+
+						SetIndicatorLEDsNum(3);
+						progStateLocal = P_IDLE;
+
+						break;
+
+
+					case cmd_16:
+
+						SetIndicatorLEDsNum(4);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_17:
+
+						SetIndicatorLEDsNum(5);
+						progStateLocal = P_IDLE;
+
+						break;
+
+
+					case cmd_18:
+
+						SetIndicatorLEDsNum(6);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_19:
+
+						HelpSendUART(len_of_array, cmdStrings);
+						progStateLocal = P_IDLE;
+
+						break;
+
+					case cmd_20:
+						// reserved
+
+						break;
+				}
+
+				//ClearRxBuffer();
+
+				osMutexAcquire(RegimeMutexHandle, osWaitForever);
+				progState = progStateLocal;
+				osMutexRelease(RegimeMutexHandle);
+		  }
+	  }
+
+    osDelay(100);
   }
   /* USER CODE END StartTerminalTask */
 }

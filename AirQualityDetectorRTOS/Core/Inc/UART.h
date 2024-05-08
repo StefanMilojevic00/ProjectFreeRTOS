@@ -25,5 +25,10 @@ void UART_TransmitStringWithoutNewLine(char* str);
 //@param data Data to be transmitted
 void UART_TransmitFloat(float data);
 
+//@brief Function to send list of commands to the user
+//@param NumOfElements Number of elements in the string
+//@param CommandMatrix Matrix that holds command list
+void HelpSendUART(uint16_t NumOfElements, char** CommandMatrix);
+
 
 #endif /* INC_UART_H_ */

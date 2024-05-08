@@ -38,7 +38,7 @@ Core/Src/Variables.o: ../Core/Src/Variables.c ../Core/Inc/Variables.h \
  ../Core/Inc/AlarmSystem.h ../Core/Inc/Buzzer.h ../Core/Inc/UART.h \
  ../Core/Inc/SignalSystem.h ../Core/Inc/Button.h \
  ../Core/Inc/AirQualityIndicator.h ../Core/Inc/LedRow.h \
- ../Core/Inc/UART_CommandSystem.h
+ ../Core/Inc/UART_CommandSystem.h ../Core/Inc/Variables.h
 ../Core/Inc/Variables.h:
 ../Core/Inc/LED_Handler.h:
 ../Core/Inc/main.h:
@@ -86,3 +86,4 @@ Core/Src/Variables.o: ../Core/Src/Variables.c ../Core/Inc/Variables.h \
 ../Core/Inc/AirQualityIndicator.h:
 ../Core/Inc/LedRow.h:
 ../Core/Inc/UART_CommandSystem.h:
+../Core/Inc/Variables.h:

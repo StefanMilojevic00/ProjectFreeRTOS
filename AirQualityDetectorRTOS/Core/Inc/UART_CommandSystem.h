@@ -9,6 +9,7 @@
 #define INC_UART_COMMANDSYSTEM_H_
 
 #include "main.h"
+#include "Variables.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <string.h>
@@ -43,5 +44,10 @@ char* GetRxBuffer();
 //@param ret_val Index of specific command in matrix
 //@retval bool Returns true if the command exists
 bool StringCompareFromUART(char* cmd_string, char** matrix,  uint16_t numOfStrings, uint16_t* index);
+
+////@brief Function to run the command comming from uart
+////@param cmdFSM Pointer to command fsm, type declared in Variables.h
+////@param prgFSM Pinter to program state fms, type declared in Variables.h
+//void ExecuteUARTCommand(UART_commandsFSM* cmdFSM, ProgramStateFSM* prgFSM);
 
 #endif /* INC_UART_COMMANDSYSTEM_H_ */

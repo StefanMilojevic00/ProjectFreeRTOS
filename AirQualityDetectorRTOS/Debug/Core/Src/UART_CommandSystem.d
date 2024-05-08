@@ -34,7 +34,12 @@ Core/Src/UART_CommandSystem.o: ../Core/Src/UART_CommandSystem.c \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
- ../Core/Inc/UART.h
+ ../Core/Inc/Variables.h ../Core/Inc/LED_Handler.h \
+ ../Core/Inc/LED_Driver.h ../Core/Inc/GasSensor.h \
+ ../Core/Inc/AlarmSystem.h ../Core/Inc/Buzzer.h ../Core/Inc/UART.h \
+ ../Core/Inc/SignalSystem.h ../Core/Inc/Button.h \
+ ../Core/Inc/AirQualityIndicator.h ../Core/Inc/LedRow.h \
+ ../Core/Inc/UART_CommandSystem.h ../Core/Inc/UART.h
 ../Core/Inc/UART_CommandSystem.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal.h:
@@ -71,4 +76,16 @@ Core/Src/UART_CommandSystem.o: ../Core/Src/UART_CommandSystem.c \
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_tim_ex.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h:
 ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h:
+../Core/Inc/Variables.h:
+../Core/Inc/LED_Handler.h:
+../Core/Inc/LED_Driver.h:
+../Core/Inc/GasSensor.h:
+../Core/Inc/AlarmSystem.h:
+../Core/Inc/Buzzer.h:
+../Core/Inc/UART.h:
+../Core/Inc/SignalSystem.h:
+../Core/Inc/Button.h:
+../Core/Inc/AirQualityIndicator.h:
+../Core/Inc/LedRow.h:
+../Core/Inc/UART_CommandSystem.h:
 ../Core/Inc/UART.h:

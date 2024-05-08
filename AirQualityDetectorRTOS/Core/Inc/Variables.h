@@ -9,6 +9,7 @@
 #define INC_VARIABLES_H_
 
 #include <stdbool.h>
+#include <stdint.h>
 #include "LED_Handler.h"
 #include "GasSensor.h"
 #include "AlarmSystem.h"
