@@ -32,3 +32,16 @@ void UART_TransmitFloat(float data)
 	HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
 }
 
+void HelpSendUART(uint16_t NumOfElements, char** CommandMatrix)
+{
+	uint16_t iterator = 0;
+	UART_TransmitString("\n===  UART Commands ===\n");
+	while(iterator < NumOfElements)
+	{
+		UART_TransmitStringWithoutNewLine("\t");
+		UART_TransmitString(CommandMatrix[iterator]);
+
+		iterator++;
+	}
+	UART_TransmitString("\n==========\n");
+}

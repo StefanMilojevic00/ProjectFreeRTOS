@@ -1,7 +1,779 @@
-11:22:42 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+13:40:08 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:144:13: warning: 'FAN_OFF' defined but not used [-Wunused-variable]
+  144 | static char FAN_OFF[] = "FAN stoped";
+      |             ^~~~~~~
+../Core/Src/main.c:143:13: warning: 'FAN_ON' defined but not used [-Wunused-variable]
+  143 | static char FAN_ON[] = "FAN started";
+      |             ^~~~~~
+../Core/Src/main.c:142:13: warning: 'S5WorkStateMSG' defined but not used [-Wunused-variable]
+  142 | static char S5WorkStateMSG[] = "S5 work regime selected";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:141:13: warning: 'S3WorkStateMSG' defined but not used [-Wunused-variable]
+  141 | static char S3WorkStateMSG[] = "S3 work regime selected";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:140:13: warning: 'S1WorkStateMSG' defined but not used [-Wunused-variable]
+  140 | static char S1WorkStateMSG[] = "S1 work regime selected";
+      |             ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61900	    728	  21464	  84092	  1487c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+13:51:22 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61916	    824	  21464	  84204	  148ec	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+13:53:16 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
 make -j8 all 
 arm-none-eabi-size  AirQualityDetectorRTOS.elf 
    text	   data	    bss	    dec	    hex	filename
-  35364	     96	  21448	  56908	   de4c	AirQualityDetectorRTOS.elf
+  61916	    824	  21464	  84204	  148ec	AirQualityDetectorRTOS.elf
 Finished building: default.size.stdout
+ 
+13:54:57 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61916	    824	  21464	  84204	  148ec	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+13:56:47 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61916	    824	  21464	  84204	  148ec	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:23:07 **** Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  60772	    824	  21464	  83060	  14474	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:28:59 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  60916	    824	  21464	  83204	  14504	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:30:55 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61196	    824	  21464	  83484	  1461c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:38:55 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  59788	    680	  21304	  81772	  13f6c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:41:13 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  59724	    680	  21256	  81660	  13efc	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:44:18 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  59788	    680	  21304	  81772	  13f6c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:45:45 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  59788	    680	  21304	  81772	  13f6c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+09:47:23 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  59788	    680	  21304	  81772	  13f6c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:00:28 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/Variables.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Variables.d" -MT"Core/Src/Variables.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Variables.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61148	    824	  21312	  83284	  14554	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:01:48 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61020	    748	  21316	  83084	  1448c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:04:44 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61036	    748	  21316	  83100	  1449c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:05:22 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61036	    748	  21316	  83100	  1449c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+10:10:32 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61036	    748	  21316	  83100	  1449c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:12:51 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61052	    748	  21316	  83116	  144ac	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:14:26 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61052	    748	  21316	  83116	  144ac	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:19:39 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61068	    748	  21316	  83132	  144bc	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:21:20 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61068	    748	  21316	  83132	  144bc	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:23:33 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61052	    748	  21316	  83116	  144ac	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:31:07 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/Variables.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Variables.d" -MT"Core/Src/Variables.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Variables.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61100	    748	  21316	  83164	  144dc	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:31:41 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61100	    748	  21316	  83164	  144dc	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+10:34:10 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61100	    748	  21316	  83164	  144dc	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:36:17 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc "../Core/Src/Variables.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Variables.d" -MT"Core/Src/Variables.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Variables.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:37:20 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:38:05 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/Variables.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Variables.d" -MT"Core/Src/Variables.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Variables.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61980	    748	  21316	  84044	  1484c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:38:57 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61980	    748	  21316	  84044	  1484c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:39:15 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61980	    748	  21316	  84044	  1484c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+10:41:49 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61948	    748	  21316	  84012	  1482c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:44:55 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:45:58 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:47:10 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+10:54:31 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+10:54:59 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+10:55:06 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+10:59:15 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/UART_CommandSystem.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/UART_CommandSystem.d" -MT"Core/Src/UART_CommandSystem.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/UART_CommandSystem.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+11:01:11 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  61932	    748	  21316	  83996	  1481c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+11:03:42 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:994:14: warning: unused variable 'sentAlarmMSG' [-Wunused-variable]
+  994 |         bool sentAlarmMSG = false; // flag to transmit alarm msg only once
+      |              ^~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:139:13: warning: 'RoomClearedMSG' defined but not used [-Wunused-variable]
+  139 | static char RoomClearedMSG[] = "Room cleared, it is now safe to return";
+      |             ^~~~~~~~~~~~~~
+../Core/Src/main.c:138:13: warning: 'AlertMSG' defined but not used [-Wunused-variable]
+  138 | static char AlertMSG[] = "Dangerous leves of PPM in the room";
+      |             ^~~~~~~~
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  61948	    748	  21316	  84012	  1482c	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+11:39:34 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62508	    824	  21312	  84644	  14aa4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+11:46:41 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'StartMainTask':
+../Core/Src/main.c:1066:11: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1066 |           if((progStateLocal != P_IDLE) || (progStateLocal != P_IDLE));
+      |           ^~
+../Core/Src/main.c:1067:11: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1067 |           {
+      |           ^
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62508	    824	  21312	  84644	  14aa4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+11:49:11 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62524	    824	  21312	  84660	  14ab4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+11:51:34 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62572	    824	  21312	  84708	  14ae4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+11:56:17 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62572	    824	  21312	  84708	  14ae4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+12:00:52 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62556	    824	  21312	  84692	  14ad4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+12:04:15 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62556	    824	  21312	  84692	  14ad4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+12:55:38 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62556	    824	  21312	  84692	  14ad4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+12:57:51 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62540	    824	  21312	  84676	  14ac4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+13:44:45 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62732	    824	  21312	  84868	  14b84	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
+ 
+13:47:32 **** Incremental Build of configuration Debug for project AirQualityDetectorRTOS ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F750xx -c -I../Core/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc -I../Drivers/STM32F7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F7xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "AirQualityDetectorRTOS.elf" @"objects.list"   -mcpu=cortex-m7 -T"C:\Users\Stevan.Milojevic\Desktop\Praksa2024RTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\STM32F750N8HX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AirQualityDetectorRTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: AirQualityDetectorRTOS.elf
+ 
+arm-none-eabi-size  AirQualityDetectorRTOS.elf 
+arm-none-eabi-objdump -h -S AirQualityDetectorRTOS.elf  > "AirQualityDetectorRTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  62572	    824	  21312	  84708	  14ae4	AirQualityDetectorRTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: AirQualityDetectorRTOS.list
  

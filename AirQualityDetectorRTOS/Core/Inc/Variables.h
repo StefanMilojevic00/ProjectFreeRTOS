@@ -9,6 +9,7 @@
 #define INC_VARIABLES_H_
 
 #include <stdbool.h>
+#include <stdint.h>
 #include "LED_Handler.h"
 #include "GasSensor.h"
 #include "AlarmSystem.h"
@@ -55,7 +56,7 @@ typedef struct
 }ProgramCounters;
 
 //FSM to handle the states in which the system works
-typedef enum {P_IDLE, P_IDLE_START, P_WORK} ProgramStateFSM;
+typedef enum {P_IDLE, P_IDLE_START, P_WORK_S1, P_WORK_S3, P_WORK_S5} ProgramStateFSM;
 //FSM to count the time and set needed flags for action
 typedef enum {C_IDLE, C_START, C_END} CountingTasterFSM;
 //FSM to control single LED
