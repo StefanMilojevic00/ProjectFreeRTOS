@@ -34,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DangerousPPM 2200
+#define DangerousPPM 3000 // to be adjusted
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -75,11 +75,6 @@ osTimerId_t LEDTimerHandle;
 const osTimerAttr_t LEDTimer_attributes = {
   .name = "LEDTimer"
 };
-/* Definitions for TransmitTimer */
-osTimerId_t TransmitTimerHandle;
-const osTimerAttr_t TransmitTimer_attributes = {
-  .name = "TransmitTimer"
-};
 /* Definitions for ButtonTimer */
 osTimerId_t ButtonTimerHandle;
 const osTimerAttr_t ButtonTimer_attributes = {
@@ -105,6 +100,11 @@ osMutexId_t LED_FSM_MutexHandle;
 const osMutexAttr_t LED_FSM_Mutex_attributes = {
   .name = "LED_FSM_Mutex"
 };
+/* Definitions for ButtonCountMutex */
+osMutexId_t ButtonCountMutexHandle;
+const osMutexAttr_t ButtonCountMutex_attributes = {
+  .name = "ButtonCountMutex"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -119,7 +119,6 @@ void StartMainTask(void *argument);
 void StartTerminalTask(void *argument);
 void StartButtonTask(void *argument);
 void LEDTimerCallback(void *argument);
-void TransmitTimerCallback(void *argument);
 void ButtonTimerCallback(void *argument);
 
 /* USER CODE BEGIN PFP */
@@ -129,7 +128,6 @@ volatile uint8_t button_press_counter = 0;
 // END Button variables //
 
 // Read parameters variables //
-volatile float PPM;
 volatile bool quality_status;
 // END Read parameters variables //
 
@@ -236,10 +234,10 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  DevicesInit(); // This Method initialize whole app system
-  LED_Drive(true);
-  osTimerStop(ButtonTimerHandle);
-  osTimerStart(LEDTimerHandle, 3000);
+  DevicesInit(); // Function that initializes all of systems components
+//  LED_Drive(true);
+//  osTimerStop(ButtonTimerHandle);
+//  osTimerStart(LEDTimerHandle, 3000);
 
   /* USER CODE END 2 */
 
@@ -258,6 +256,9 @@ int main(void)
   /* creation of LED_FSM_Mutex */
   LED_FSM_MutexHandle = osMutexNew(&LED_FSM_Mutex_attributes);
 
+  /* creation of ButtonCountMutex */
+  ButtonCountMutexHandle = osMutexNew(&ButtonCountMutex_attributes);
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -269,9 +270,6 @@ int main(void)
   /* Create the timer(s) */
   /* creation of LEDTimer */
   LEDTimerHandle = osTimerNew(LEDTimerCallback, osTimerPeriodic, NULL, &LEDTimer_attributes);
-
-  /* creation of TransmitTimer */
-  TransmitTimerHandle = osTimerNew(TransmitTimerCallback, osTimerPeriodic, NULL, &TransmitTimer_attributes);
 
   /* creation of ButtonTimer */
   ButtonTimerHandle = osTimerNew(ButtonTimerCallback, osTimerOnce, NULL, &ButtonTimer_attributes);
@@ -1029,11 +1027,13 @@ void StartMainTask(void *argument)
 	  		  osMutexRelease(RegimeMutexHandle);
 
 	  		  meassuring = false;
+	  		  SetIndicatorLEDs(0); // resets the indicator
 		  break;
 
 	  	  case P_IDLE:
 	  		  //System waits for configuration
 	  		  meassuring = false;
+	  		  osDelay(5);
 		  break;
 
 	  	  case P_WORK_S1:
@@ -1072,23 +1072,26 @@ void StartMainTask(void *argument)
 	  }
 
 	  //Check for contamination
-	  if(PPMValue > DangerousPPM)
+	  if(meassuring == true)
 	  {
-		  osMutexAcquire(UARTMutexHandle, osWaitForever);
-		  UART_TransmitString(AlertMSG);
-		  osMutexRelease(UARTMutexHandle);
-		  sentAlarmMSG = true;
-		  AlarmON();
-	  }
-	  else
-	  {
-		  AlarmOFF();
-		  if(sentAlarmMSG == true)
+		  if(PPMValue > DangerousPPM)
 		  {
 			  osMutexAcquire(UARTMutexHandle, osWaitForever);
-			  UART_TransmitString(RoomClearedMSG);
+			  UART_TransmitString(AlertMSG);
 			  osMutexRelease(UARTMutexHandle);
-			  sentAlarmMSG = false; // to be avaliable for next time danger happens
+			  sentAlarmMSG = true;
+			  AlarmON();
+		  }
+		  else
+		  {
+			  AlarmOFF();
+			  if(sentAlarmMSG == true)
+			  {
+				  osMutexAcquire(UARTMutexHandle, osWaitForever);
+				  UART_TransmitString(RoomClearedMSG);
+				  osMutexRelease(UARTMutexHandle);
+				  sentAlarmMSG = false; // to be avaliable for next time danger happens
+			  }
 		  }
 	  }
 
@@ -1317,27 +1320,15 @@ void StartButtonTask(void *argument)
 	press_button_flag = ReadSignal(&read_button_flag);
     if(press_button_flag == true)
     {
-    	char* uslo_1 = "Uslo u Button Count\n";
-
-
-    	UART_TransmitString(uslo_1);
-    	LED_Drive(true);
     	osTimerStart(ButtonTimerHandle, 3000);
-    	button_press_counter++;
-    	if(button_press_counter==0)UART_TransmitString("0\n");
-    	else if(button_press_counter==1)UART_TransmitString("1\n");
-    	else if(button_press_counter==2)UART_TransmitString("2\n");
 
-    	UART_TransmitFloat((float)button_press_counter);
-    	char* newLinen = "\n";
-    	UART_TransmitString(newLinen);
+    	osMutexAcquire(ButtonCountMutexHandle, osWaitForever);
+    	button_press_counter++;
+    	osMutexRelease(ButtonCountMutexHandle);
+
     	press_button_flag = false;
     }
-
-    osMutexAcquire(RegimeMutexHandle, osWaitForever);
-//	progStateLocal = progState;
-	osMutexRelease(RegimeMutexHandle);
-    osDelay(10);
+    osDelay(5);
   }
   /* USER CODE END StartButtonTask */
 }
@@ -1353,7 +1344,6 @@ void LEDTimerCallback(void *argument)
 	ProgramStateFSM progStateLocal;
 	LED_StatusFSM ledStateLocal;
 
-	char* newLine = "Uslo\n";
 
 	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
 		quality_status_local = quality_status;
@@ -1378,7 +1368,6 @@ void LEDTimerCallback(void *argument)
 		switch(ledStateLocal)
 		{
 			case LED_OFF:
-				void AlarmOFF();
 				osTimerStart(LEDTimerHandle, 3000);
 				LED_Drive(false);
 				if(quality_status_local == true)
@@ -1393,7 +1382,6 @@ void LEDTimerCallback(void *argument)
 				break;
 
 			case LED_ON_CORECT:
-				void AlarmON();
 				LED_Drive(true);
 				osTimerStart(LEDTimerHandle, 1000);
 				ledStateLocal = LED_OFF;
@@ -1402,7 +1390,6 @@ void LEDTimerCallback(void *argument)
 
 			case LED_ON_INCORECT:
 
-				void AlarmON();
 				LED_Drive(true);
 				osTimerStart(LEDTimerHandle, 500);
 				ledStateLocal = LED_OFF;
@@ -1419,23 +1406,18 @@ void LEDTimerCallback(void *argument)
   /* USER CODE END LEDTimerCallback */
 }
 
-/* TransmitTimerCallback function */
-void TransmitTimerCallback(void *argument)
-{
-  /* USER CODE BEGIN TransmitTimerCallback */
-
-  /* USER CODE END TransmitTimerCallback */
-}
-
 /* ButtonTimerCallback function */
 void ButtonTimerCallback(void *argument)
 {
   /* USER CODE BEGIN ButtonTimerCallback */
-	ProgramStateFSM progStateLocal = P_IDLE_START;
-	LED_Drive(false);
-	SetIndicatorLEDsNum(button_press_counter);
+	ProgramStateFSM progStateLocal;
+	uint8_t ButtonCountLocal;
 
-	switch(button_press_counter)
+	osMutexAcquire(ButtonCountMutexHandle, osWaitForever);
+	ButtonCountLocal = button_press_counter;
+	osMutexRelease(ButtonCountMutexHandle);
+
+	switch(ButtonCountLocal)
 	{
 		case 0:
 
@@ -1446,22 +1428,27 @@ void ButtonTimerCallback(void *argument)
 		case 1:
 
 			progStateLocal = P_WORK_S1;
+			UART_TransmitString(S1WorkStateMSG);
 
 			break;
 
 		case 2:
 
 			progStateLocal = P_WORK_S3;
+			UART_TransmitString(S3WorkStateMSG);
 
 			break;
 
 		case 3:
 
 			progStateLocal = P_WORK_S5;
+			UART_TransmitString(S5WorkStateMSG);
 
 			break;
 
 		case 4:
+
+			// Not specified
 
 			break;
 
@@ -1473,15 +1460,15 @@ void ButtonTimerCallback(void *argument)
 
 	}
 
+	osMutexAcquire(ButtonCountMutexHandle, osWaitForever);
 	button_press_counter = 0;
+	osMutexRelease(ButtonCountMutexHandle);
 
     osMutexAcquire(RegimeMutexHandle, osWaitForever);
-    	progState = progStateLocal;
+    progState = progStateLocal;
 	osMutexRelease(RegimeMutexHandle);
 
-   osTimerStop(ButtonTimerHandle);
-
-//	bool ReadSignal(bool* readEnable)
+   //osTimerStop(ButtonTimerHandle);
   /* USER CODE END ButtonTimerCallback */
 }
 
