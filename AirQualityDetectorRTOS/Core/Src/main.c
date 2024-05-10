@@ -34,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DangerousPPM 2400 // to be adjusted
+#define DangerousPPM 2000 // to be adjusted
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -135,7 +135,7 @@ volatile uint8_t button_press_counter = 0;
 // END Button variables //
 
 // Read parameters variables //
-volatile bool quality_status;
+volatile bool quality_status = true;
 // END Read parameters variables //
 
 // For UART commands //
@@ -1016,6 +1016,7 @@ void StartMainTask(void *argument)
 	float PPMValue;
 	bool sentAlarmMSG = false; // flag to transmit alarm msg only once
 	bool meassuring = false;
+	uint16_t delay_main_task_time = 5;
 
   /* Infinite loop */
   for(;;)
@@ -1060,7 +1061,7 @@ void StartMainTask(void *argument)
 
 	  		  //System waits for configuration
 	  		  meassuring = false;
-	  		  osDelay(5);
+	  		  delay_main_task_time = 5;
 
 		  break;
 
@@ -1072,7 +1073,7 @@ void StartMainTask(void *argument)
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
 	  		  osMutexRelease(UARTMutexHandle);
-	  		  osDelay(1000);
+	  		  delay_main_task_time = 1000;
 
 	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
 	  		  if(progChangeState == PC_IDLE)
@@ -1090,14 +1091,14 @@ void StartMainTask(void *argument)
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
 	  		  osMutexRelease(UARTMutexHandle);
+
 	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
 	  		  if(progChangeState == PC_IDLE)
 	  		  {
 		  		  progChangeState = PC_WORK_START;
 	  		  }
 	  	      osMutexRelease(SystemWorkStateMutexHandle);
-	  		  osDelay(3000);
-
+	  	      delay_main_task_time = 3000;
 		  break;
 
 	  	  case P_WORK_S5:
@@ -1107,6 +1108,7 @@ void StartMainTask(void *argument)
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
 	  		  osMutexRelease(UARTMutexHandle);
+
 	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
 	  		  if(progChangeState == PC_IDLE)
 	  		  {
@@ -1114,7 +1116,7 @@ void StartMainTask(void *argument)
 	  		  }
 	  	      osMutexRelease(SystemWorkStateMutexHandle);
 
-	  		  osDelay(5000);
+	  	      delay_main_task_time = 5000;
 
 		  break;
 	  }
@@ -1140,23 +1142,34 @@ void StartMainTask(void *argument)
 			  osMutexAcquire(UARTMutexHandle, osWaitForever);
 			  UART_TransmitString(AlertMSG);
 			  osMutexRelease(UARTMutexHandle);
+
+			  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
+				quality_status = false;
+			  osMutexRelease(LED_Blink_MutexHandle);
+
 			  sentAlarmMSG = true;
 			  AlarmON();
 		  }
 		  else
 		  {
+			  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
+				quality_status = true;
+			  osMutexRelease(LED_Blink_MutexHandle);
+
 			  AlarmOFF();
 			  if(sentAlarmMSG == true)
 			  {
 				  osMutexAcquire(UARTMutexHandle, osWaitForever);
 				  UART_TransmitString(RoomClearedMSG);
 				  osMutexRelease(UARTMutexHandle);
+
 				  sentAlarmMSG = false; // to be avaliable for next time danger happens
 			  }
 		  }
 	  }
-
+	  osDelay(delay_main_task_time);
   }
+
   /* USER CODE END 5 */
 }
 
@@ -1242,8 +1255,6 @@ void StartTerminalTask(void *argument)
 					case cmd_6:
 
 						UART_TransmitString(FAN_ON);
-
-
 						progStateLocal = P_IDLE;
 
 						break;
@@ -1410,107 +1421,101 @@ void StartSingleLEDTask(void *argument)
 	ProgramStateFSM progStateLocal;
 	bool local_task_enable = false;
 
-	uint16_t delay_time = 10000;
+	uint16_t delay_time = 10;
   /* Infinite loop */
   for(;;)
   {
-	//============ Checking does system first time in work state after idle state ============//
-	osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
-	if(progChangeState == PC_WORK)
-	{
-		local_task_enable = true;
-		progChangeState = PC_WORK_CHECK;
-	}
-	else
-	{
-		local_task_enable = false;
-	}
-	osMutexRelease(SystemWorkStateMutexHandle);
-	//========= END  Checking does system first time in work state after idle state =========//
-
 
 	//============ Update from mutex ============//
 	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
 		quality_status_local = quality_status;
 	osMutexRelease(LED_Blink_MutexHandle);
 
-	osMutexAcquire(RegimeMutexHandle, osWaitForever);
-		progStateLocal = progState;
-	osMutexRelease(RegimeMutexHandle);
-
 	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
 		ledStateLocal = ledState;
 	osMutexRelease(LED_FSM_MutexHandle);
+
+	osMutexAcquire(RegimeMutexHandle, osWaitForever);
+		progStateLocal = progState;
+	osMutexRelease(RegimeMutexHandle);
 	//========== END Update from mutex ==========//
 
-
-	//============ Update logic state ===================//
-
-	if(local_task_enable == true)
+	if((progStateLocal != P_IDLE_START) && (progStateLocal != P_IDLE))
 	{
-		if(quality_status_local == true)
+		//============ Checking does system first time in work state after idle state ============//
+		osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+		if(progChangeState == PC_WORK)
 		{
-			ledStateLocal = LED_ON_CORRECT;
+			local_task_enable = true;
+			progChangeState = PC_WORK_CHECK;
 		}
-		else if(quality_status_local == false)
+		else
 		{
-			ledStateLocal = LED_ON_INCORRECT;
+			local_task_enable = false;
 		}
-	}
-	else
-	{
-		//....
-	}
+		osMutexRelease(SystemWorkStateMutexHandle);
+		//========= END  Checking does system first time in work state after idle state =========//
 
-	if((progStateLocal == P_IDLE_START) || (progStateLocal == P_IDLE))
-	{
-		LED_Drive(false);
-		ledStateLocal = LED_OFF;
-	}
-	else
-	{
-		switch(ledStateLocal)
+		//============ Update logic state ===================//
+
+		if(local_task_enable == true)
 		{
-			case LED_OFF:
-				LED_Drive(false);
-				delay_time = 3000;
-				if(quality_status_local == true)
-				{
-					ledStateLocal = LED_ON_CORRECT;
-				}
-				else
-				{
-					ledStateLocal = LED_ON_INCORRECT;
-				}
-
-				break;
-
-			case LED_ON_CORRECT:
-				LED_Drive(true);
-				delay_time = 1000;
-				ledStateLocal = LED_OFF;
-
-				break;
-
-			case LED_ON_INCORRECT:
-
-				LED_Drive(true);
-				delay_time = 500;
-				ledStateLocal = LED_OFF;
-
-				break;
+			if(quality_status_local == true)
+			{
+				ledStateLocal = LED_ON_CORRECT;
+			}
+			else if(quality_status_local == false)
+			{
+				ledStateLocal = LED_ON_INCORRECT;
+			}
+			local_task_enable = false;
 		}
+		else
+		{
+			switch(ledStateLocal)
+			{
+				case LED_OFF:
+					LED_Drive(false);
+					delay_time = 3000;
+					if(quality_status_local == true)
+					{
+						ledStateLocal = LED_ON_CORRECT;
+					}
+					else
+					{
+						ledStateLocal = LED_ON_INCORRECT;
+					}
+
+					break;
+
+				case LED_ON_CORRECT:
+					LED_Drive(true);
+					delay_time = 2000;
+					ledStateLocal = LED_OFF;
+
+					break;
+
+				case LED_ON_INCORRECT:
+
+					LED_Drive(true);
+					delay_time = 100;
+					ledStateLocal = LED_OFF;
+
+					break;
+			}
+		}
+
+		//========== Keep LED state for delay_time ===========//
+		osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
+			ledState = ledStateLocal;
+		osMutexRelease(LED_FSM_MutexHandle);
+		//========== END Keep LED state for delay_time ===========//
+
 	}
 
-	//========== Keep LED state for delay_time ===========//
-	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
-		ledState = ledStateLocal;
-	osMutexRelease(LED_FSM_MutexHandle);
-	//========== END Keep LED state for delay_time ===========//
-
-	//============ Keep LED state for delay_time =============//
+	//============ Keep LED state for delay_time or task delay execute =============//
 	osDelay(delay_time);
-	//========== END Keep LED state for delay_time ===========//
+	//===================== END  Keep LED state for delay_time =====================//
   }
   /* USER CODE END StartSingleLEDTask */
 }

@@ -2,6 +2,7 @@ c_comment_task_tag=255,255,0
 c_multi_line_comment=255,255,0
 c_single_line_comment=255,255,0
 eclipse.preferences.version=1
+scalability.detect=false
 spelling_locale_initialized=true
 useAnnotationsPrefPage=true
 useQuickDiffPrefPage=true
