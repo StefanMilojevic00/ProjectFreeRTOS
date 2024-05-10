@@ -47,7 +47,7 @@ void LedRowWrite(ledRow_t* ledRow, float PPM_Value)
 		HAL_GPIO_WritePin(ledRow->gpioPortGreen, ledRow->gpioPinGreen, GPIO_PIN_RESET);
 	}
 
-	if(PPM_Value > 600)
+	if(PPM_Value > 800)
 	{
 		HAL_GPIO_WritePin(ledRow->gpioPortYellow1, ledRow->gpioPinYellow1, GPIO_PIN_SET);
 	}
@@ -56,7 +56,7 @@ void LedRowWrite(ledRow_t* ledRow, float PPM_Value)
 		HAL_GPIO_WritePin(ledRow->gpioPortYellow1, ledRow->gpioPinYellow1, GPIO_PIN_RESET);
 	}
 
-	if(PPM_Value > 1200)
+	if(PPM_Value > 1500)
 	{
 		HAL_GPIO_WritePin(ledRow->gpioPortYellow2, ledRow->gpioPinYellow2, GPIO_PIN_SET);
 	}
@@ -65,7 +65,7 @@ void LedRowWrite(ledRow_t* ledRow, float PPM_Value)
 		HAL_GPIO_WritePin(ledRow->gpioPortYellow2, ledRow->gpioPinYellow2, GPIO_PIN_RESET);
 	}
 
-	if(PPM_Value > 1800)
+	if(PPM_Value > 2200)
 	{
 		HAL_GPIO_WritePin(ledRow->gpioPortBlue1, ledRow->gpioPinBlue1, GPIO_PIN_SET);
 	}
@@ -74,7 +74,7 @@ void LedRowWrite(ledRow_t* ledRow, float PPM_Value)
 		HAL_GPIO_WritePin(ledRow->gpioPortBlue1, ledRow->gpioPinBlue1, GPIO_PIN_RESET);
 	}
 
-	if(PPM_Value > 2400)
+	if(PPM_Value > 3000)
 	{
 		HAL_GPIO_WritePin(ledRow->gpioPortBlue2, ledRow->gpioPinBlue2, GPIO_PIN_SET);
 	}
@@ -83,7 +83,7 @@ void LedRowWrite(ledRow_t* ledRow, float PPM_Value)
 		HAL_GPIO_WritePin(ledRow->gpioPortBlue2, ledRow->gpioPinBlue2, GPIO_PIN_RESET);
 	}
 
-	if(PPM_Value > 3000)
+	if(PPM_Value > 4000)
 	{
 		HAL_GPIO_WritePin(ledRow->gpioPortBlue3, ledRow->gpioPinBlue3, GPIO_PIN_SET);
 	}

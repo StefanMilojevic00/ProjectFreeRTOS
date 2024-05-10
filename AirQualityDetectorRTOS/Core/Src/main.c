@@ -34,7 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define DangerousPPM 3000 // to be adjusted
+#define DangerousPPM 2400 // to be adjusted
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -67,13 +67,15 @@ const osThreadAttr_t TerminalTask_attributes = {
 osThreadId_t ButtonTaskHandle;
 const osThreadAttr_t ButtonTask_attributes = {
   .name = "ButtonTask",
-  .stack_size = 1024 * 4,
+  .stack_size = 512 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for LEDTimer */
-osTimerId_t LEDTimerHandle;
-const osTimerAttr_t LEDTimer_attributes = {
-  .name = "LEDTimer"
+/* Definitions for SingleLEDTask */
+osThreadId_t SingleLEDTaskHandle;
+const osThreadAttr_t SingleLEDTask_attributes = {
+  .name = "SingleLEDTask",
+  .stack_size = 512 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for ButtonTimer */
 osTimerId_t ButtonTimerHandle;
@@ -105,6 +107,11 @@ osMutexId_t ButtonCountMutexHandle;
 const osMutexAttr_t ButtonCountMutex_attributes = {
   .name = "ButtonCountMutex"
 };
+/* Definitions for SystemWorkStateMutex */
+osMutexId_t SystemWorkStateMutexHandle;
+const osMutexAttr_t SystemWorkStateMutex_attributes = {
+  .name = "SystemWorkStateMutex"
+};
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -118,7 +125,7 @@ static void MX_USART1_UART_Init(void);
 void StartMainTask(void *argument);
 void StartTerminalTask(void *argument);
 void StartButtonTask(void *argument);
-void LEDTimerCallback(void *argument);
+void StartSingleLEDTask(void *argument);
 void ButtonTimerCallback(void *argument);
 
 /* USER CODE BEGIN PFP */
@@ -189,6 +196,7 @@ char* cmdStrings[] = {
 
 // FSMs //
 ProgramStateFSM progState = P_IDLE_START;
+ProgramChangeStateFSM  progChangeState = PC_IDLE;
 CountingTasterFSM countState = C_IDLE;
 LED_StatusFSM ledState = LED_OFF;
 UART_commandsFSM uartCmdState;
@@ -259,6 +267,9 @@ int main(void)
   /* creation of ButtonCountMutex */
   ButtonCountMutexHandle = osMutexNew(&ButtonCountMutex_attributes);
 
+  /* creation of SystemWorkStateMutex */
+  SystemWorkStateMutexHandle = osMutexNew(&SystemWorkStateMutex_attributes);
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -268,9 +279,6 @@ int main(void)
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* Create the timer(s) */
-  /* creation of LEDTimer */
-  LEDTimerHandle = osTimerNew(LEDTimerCallback, osTimerPeriodic, NULL, &LEDTimer_attributes);
-
   /* creation of ButtonTimer */
   ButtonTimerHandle = osTimerNew(ButtonTimerCallback, osTimerOnce, NULL, &ButtonTimer_attributes);
 
@@ -291,6 +299,9 @@ int main(void)
 
   /* creation of ButtonTask */
   ButtonTaskHandle = osThreadNew(StartButtonTask, NULL, &ButtonTask_attributes);
+
+  /* creation of SingleLEDTask */
+  SingleLEDTaskHandle = osThreadNew(StartSingleLEDTask, NULL, &SingleLEDTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -1005,6 +1016,7 @@ void StartMainTask(void *argument)
 	float PPMValue;
 	bool sentAlarmMSG = false; // flag to transmit alarm msg only once
 	bool meassuring = false;
+
   /* Infinite loop */
   for(;;)
   {
@@ -1017,7 +1029,9 @@ void StartMainTask(void *argument)
 	  switch(progStateLocal)
 	  {
 	  	  case P_IDLE_START:
+
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
+
 	  		  HelpSendUART(len_of_array, cmdStrings);
 	  		  UART_TransmitString(IdleMSG);
 	  		  osMutexRelease(UARTMutexHandle);
@@ -1026,43 +1040,90 @@ void StartMainTask(void *argument)
 	  		  progState = P_IDLE;
 	  		  osMutexRelease(RegimeMutexHandle);
 
+	  		  // LED Blink logic //
+	  		  //osTimerStart(LEDTimerCallback,500);
+
+	  		  osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
+	  		  ledState = LED_OFF;
+	  		  osMutexRelease(LED_FSM_MutexHandle);
+
+	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+	  		  progChangeState = PC_IDLE;
+	  		  osMutexRelease(SystemWorkStateMutexHandle);
+
 	  		  meassuring = false;
 	  		  SetIndicatorLEDs(0); // resets the indicator
+
 		  break;
 
 	  	  case P_IDLE:
+
 	  		  //System waits for configuration
 	  		  meassuring = false;
 	  		  osDelay(5);
+
 		  break;
 
 	  	  case P_WORK_S1:
+
 	  		  meassuring = true;
+
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
 	  		  osMutexRelease(UARTMutexHandle);
 	  		  osDelay(1000);
+
+	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+	  		  if(progChangeState == PC_IDLE)
+	  		  {
+		  		  progChangeState = PC_WORK_START;
+	  		  }
+	  	      osMutexRelease(SystemWorkStateMutexHandle);
+
 		  break;
 
 	  	  case P_WORK_S3:
+
 	  		  meassuring = true;
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
 	  		  osMutexRelease(UARTMutexHandle);
+	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+	  		  if(progChangeState == PC_IDLE)
+	  		  {
+		  		  progChangeState = PC_WORK_START;
+	  		  }
+	  	      osMutexRelease(SystemWorkStateMutexHandle);
 	  		  osDelay(3000);
+
 		  break;
 
 	  	  case P_WORK_S5:
+
 	  		  meassuring = true;
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
 	  		  osMutexRelease(UARTMutexHandle);
+	  		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+	  		  if(progChangeState == PC_IDLE)
+	  		  {
+		  		  progChangeState = PC_WORK_START;
+	  		  }
+	  	      osMutexRelease(SystemWorkStateMutexHandle);
+
 	  		  osDelay(5000);
+
 		  break;
 	  }
+		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+		  if(progChangeState == PC_WORK_START)
+		  {
+			  progChangeState = PC_WORK;
+		  }
+	      osMutexRelease(SystemWorkStateMutexHandle);
 
 	  //Take action
 	  //Setting the indicator system
@@ -1333,18 +1394,42 @@ void StartButtonTask(void *argument)
   /* USER CODE END StartButtonTask */
 }
 
-/* LEDTimerCallback function */
-void LEDTimerCallback(void *argument)
+/* USER CODE BEGIN Header_StartSingleLEDTask */
+/**
+* @brief Function implementing the SingleLEDTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartSingleLEDTask */
+void StartSingleLEDTask(void *argument)
 {
-  /* USER CODE BEGIN LEDTimerCallback */
-	//osTimerStop(LEDTimerHandle);
+  /* USER CODE BEGIN StartSingleLEDTask */
 
-	//LED_StatusFSM ledStateLocal = ledState;
+	LED_StatusFSM ledStateLocal;
 	bool quality_status_local;
 	ProgramStateFSM progStateLocal;
-	LED_StatusFSM ledStateLocal;
+	bool local_task_enable = false;
+
+	uint16_t delay_time = 10000;
+  /* Infinite loop */
+  for(;;)
+  {
+	//============ Checking does system first time in work state after idle state ============//
+	osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+	if(progChangeState == PC_WORK)
+	{
+		local_task_enable = true;
+		progChangeState = PC_WORK_CHECK;
+	}
+	else
+	{
+		local_task_enable = false;
+	}
+	osMutexRelease(SystemWorkStateMutexHandle);
+	//========= END  Checking does system first time in work state after idle state =========//
 
 
+	//============ Update from mutex ============//
 	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
 		quality_status_local = quality_status;
 	osMutexRelease(LED_Blink_MutexHandle);
@@ -1356,54 +1441,78 @@ void LEDTimerCallback(void *argument)
 	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
 		ledStateLocal = ledState;
 	osMutexRelease(LED_FSM_MutexHandle);
+	//========== END Update from mutex ==========//
 
 
-	if( (progStateLocal == P_IDLE_START) || (progStateLocal == P_IDLE) )
+	//============ Update logic state ===================//
+
+	if(local_task_enable == true)
 	{
-		osTimerStop(LEDTimerHandle);
+		if(quality_status_local == true)
+		{
+			ledStateLocal = LED_ON_CORRECT;
+		}
+		else if(quality_status_local == false)
+		{
+			ledStateLocal = LED_ON_INCORRECT;
+		}
+	}
+	else
+	{
+		//....
+	}
+
+	if((progStateLocal == P_IDLE_START) || (progStateLocal == P_IDLE))
+	{
 		LED_Drive(false);
+		ledStateLocal = LED_OFF;
 	}
 	else
 	{
 		switch(ledStateLocal)
 		{
 			case LED_OFF:
-				osTimerStart(LEDTimerHandle, 3000);
 				LED_Drive(false);
+				delay_time = 3000;
 				if(quality_status_local == true)
 				{
-					ledStateLocal = LED_ON_CORECT;
+					ledStateLocal = LED_ON_CORRECT;
 				}
 				else
 				{
-					ledStateLocal = LED_ON_INCORECT;
+					ledStateLocal = LED_ON_INCORRECT;
 				}
 
 				break;
 
-			case LED_ON_CORECT:
+			case LED_ON_CORRECT:
 				LED_Drive(true);
-				osTimerStart(LEDTimerHandle, 1000);
+				delay_time = 1000;
 				ledStateLocal = LED_OFF;
 
 				break;
 
-			case LED_ON_INCORECT:
+			case LED_ON_INCORRECT:
 
 				LED_Drive(true);
-				osTimerStart(LEDTimerHandle, 500);
+				delay_time = 500;
 				ledStateLocal = LED_OFF;
 
 				break;
 		}
 	}
+
+	//========== Keep LED state for delay_time ===========//
 	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
 		ledState = ledStateLocal;
 	osMutexRelease(LED_FSM_MutexHandle);
+	//========== END Keep LED state for delay_time ===========//
 
-	//LED_Blink_MutexHandle
-
-  /* USER CODE END LEDTimerCallback */
+	//============ Keep LED state for delay_time =============//
+	osDelay(delay_time);
+	//========== END Keep LED state for delay_time ===========//
+  }
+  /* USER CODE END StartSingleLEDTask */
 }
 
 /* ButtonTimerCallback function */
