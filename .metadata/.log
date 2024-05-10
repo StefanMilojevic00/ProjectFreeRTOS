@@ -1430,3 +1430,22 @@ java.io.FileNotFoundException: C:\Users\Marko.Mandic\Desktop\Projekat_1_Update_3
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1040)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1243)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2024-05-10 15:13:38.399 -----------------------------------------------
+eclipse.buildId=Version 1.15.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  C:\Users\Stevan.Milojevic\Desktop\PraksaRTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\.cproject
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 C:\Users\Stevan.Milojevic\Desktop\PraksaRTOS\ProjectFreeRTOS\AirQualityDetectorRTOS\.cproject
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-05-10 15:13:52.194
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-05-10 15:13:52.196
+!MESSAGE Log4j2 initialized with config file C:\Users\Stevan.Milojevic\Desktop\PraksaRTOS\ProjectFreeRTOS\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-05-10 15:13:59.672
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-05-10 15:14:11.173
+!MESSAGE Indexed 'AirQualityDetectorRTOS' (53 sources, 163 headers) in 9.45 sec: 16,566 declarations; 95,050 references; 2 unresolved inclusions; 147 syntax errors; 148 unresolved names (0.13%)

@@ -19,50 +19,12 @@
 #include "UART_CommandSystem.h"
 #include "main.h"
 
-typedef struct
-{
-    volatile uint16_t cnt_led_correct_on;
-    volatile uint16_t cnt_led_incorrect_on;
-    volatile uint16_t cnt_led_off;
-
-    uint16_t time_led_correct_on;    // 1 sec
-    uint16_t time_led_incorrect_on;  // 0.5 sec
-    uint16_t time_led_off;           // 3 sec
-
-    volatile bool led_overflow_flag;
-    volatile bool correct_led; //  true . System works well
-}LED_Counter;
-
-
-typedef struct
-{
-	const uint16_t time_button; 	//  Timer overflow time
-	volatile uint16_t cnt_button; 	//  Timer emulator
-	volatile uint8_t prog_cnt_press; //	Counting number of press button for choosing refresh rate
-	volatile bool prog_cnt_reset;	//  It should be set after 3 sec
-	volatile bool read_button_flag; //  Purpose of this is for moving througt refresh rate FSM
-	volatile bool finish_counting;
-	volatile uint16_t ref_rate;
-	volatile bool update_ref_rate_flag;  //  Pusrpose of this is to indicate when refresh rate FSM should choose Mode
-
-	// refresh rate //
-	volatile uint16_t cnt_ref_rate;
-	volatile bool update_param_flag;
-
-	// Buzzer counters:
-	volatile uint8_t cnt_clear_room; // Counting the safeguard time when clearing a room of gas
-	const uint8_t time_clear_room; // 2 sec - prototype
-	volatile bool room_not_safe_flag;
-}ProgramCounters;
 
 //FSM to handle the states in which the system works
 typedef enum {P_IDLE_START, P_IDLE, P_WORK_S1, P_WORK_S3, P_WORK_S5} ProgramStateFSM;
 
 //FSM for IDLE to WORK regime movement
 typedef enum {PC_IDLE, PC_WORK_START, PC_WORK, PC_WORK_CHECK} ProgramChangeStateFSM;
-
-//FSM to count the time and set needed flags for action
-typedef enum {C_IDLE, C_START, C_END} CountingTasterFSM;
 
 //FSM to control single LED
 typedef enum {LED_OFF, LED_ON_CORRECT, LED_ON_INCORRECT} LED_StatusFSM;

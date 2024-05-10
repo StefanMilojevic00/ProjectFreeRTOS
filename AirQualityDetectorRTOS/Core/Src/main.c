@@ -197,7 +197,6 @@ char* cmdStrings[] = {
 // FSMs //
 ProgramStateFSM progState = P_IDLE_START;
 ProgramChangeStateFSM  progChangeState = PC_IDLE;
-CountingTasterFSM countState = C_IDLE;
 LED_StatusFSM ledState = LED_OFF;
 UART_commandsFSM uartCmdState;
 
@@ -1041,9 +1040,6 @@ void StartMainTask(void *argument)
 	  		  progState = P_IDLE;
 	  		  osMutexRelease(RegimeMutexHandle);
 
-	  		  // LED Blink logic //
-	  		  //osTimerStart(LEDTimerCallback,500);
-
 	  		  osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
 	  		  ledState = LED_OFF;
 	  		  osMutexRelease(LED_FSM_MutexHandle);
@@ -1087,6 +1083,7 @@ void StartMainTask(void *argument)
 	  	  case P_WORK_S3:
 
 	  		  meassuring = true;
+
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
@@ -1104,6 +1101,7 @@ void StartMainTask(void *argument)
 	  	  case P_WORK_S5:
 
 	  		  meassuring = true;
+
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
 	  		  UART_TransmitString(PPM_MSG);
 	  		  UART_TransmitFloat(PPMValue);
@@ -1120,12 +1118,13 @@ void StartMainTask(void *argument)
 
 		  break;
 	  }
-		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
-		  if(progChangeState == PC_WORK_START)
-		  {
-			  progChangeState = PC_WORK;
-		  }
-	      osMutexRelease(SystemWorkStateMutexHandle);
+
+	  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+	  if(progChangeState == PC_WORK_START)
+	  {
+		  progChangeState = PC_WORK;
+	  }
+	  osMutexRelease(SystemWorkStateMutexHandle);
 
 	  //Take action
 	  //Setting the indicator system
@@ -1144,7 +1143,7 @@ void StartMainTask(void *argument)
 			  osMutexRelease(UARTMutexHandle);
 
 			  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
-				quality_status = false;
+			  quality_status = false;
 			  osMutexRelease(LED_Blink_MutexHandle);
 
 			  sentAlarmMSG = true;
@@ -1153,7 +1152,7 @@ void StartMainTask(void *argument)
 		  else
 		  {
 			  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
-				quality_status = true;
+			  quality_status = true;
 			  osMutexRelease(LED_Blink_MutexHandle);
 
 			  AlarmOFF();
@@ -1183,7 +1182,7 @@ void StartMainTask(void *argument)
 void StartTerminalTask(void *argument)
 {
   /* USER CODE BEGIN StartTerminalTask */
-	//setup
+	//Setup code
 	ProgramStateFSM progStateLocal;
 	UART_commandsFSM uartCmdState;
 	uint16_t CommandIndex;
@@ -1199,9 +1198,11 @@ void StartTerminalTask(void *argument)
 		  {
 			  UART_TransmitString(ErrorMSG);
 			  ClearRxBuffer();
+
 			  osMutexAcquire(UARTMutexHandle, osWaitForever);
 			  HelpSendUART(len_of_array, cmdStrings);
 			  osMutexRelease(UARTMutexHandle);
+
 			  progStateLocal = P_IDLE;
 		  }
 		  else
@@ -1360,15 +1361,13 @@ void StartTerminalTask(void *argument)
 						break;
 				}
 
-				//ClearRxBuffer();
-
 				osMutexAcquire(RegimeMutexHandle, osWaitForever);
 				progState = progStateLocal;
 				osMutexRelease(RegimeMutexHandle);
 		  }
 	  }
 
-    osDelay(100);
+    osDelay(10);
   }
   /* USER CODE END StartTerminalTask */
 }
@@ -1383,10 +1382,11 @@ void StartTerminalTask(void *argument)
 void StartButtonTask(void *argument)
 {
   /* USER CODE BEGIN StartButtonTask */
-  /* Infinite loop */
+	//Setup code
 	bool read_button_flag = true;
 	bool press_button_flag = false;
 
+  /* Infinite loop */
   for(;;)
   {
 	press_button_flag = ReadSignal(&read_button_flag);
@@ -1415,7 +1415,7 @@ void StartButtonTask(void *argument)
 void StartSingleLEDTask(void *argument)
 {
   /* USER CODE BEGIN StartSingleLEDTask */
-
+	//Setup code
 	LED_StatusFSM ledStateLocal;
 	bool quality_status_local;
 	ProgramStateFSM progStateLocal;
@@ -1425,20 +1425,17 @@ void StartSingleLEDTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
+	  quality_status_local = quality_status;
+	  osMutexRelease(LED_Blink_MutexHandle);
 
-	//============ Update from mutex ============//
-	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
-		quality_status_local = quality_status;
-	osMutexRelease(LED_Blink_MutexHandle);
+	  osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
+	  ledStateLocal = ledState;
+	  osMutexRelease(LED_FSM_MutexHandle);
 
-	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
-		ledStateLocal = ledState;
-	osMutexRelease(LED_FSM_MutexHandle);
-
-	osMutexAcquire(RegimeMutexHandle, osWaitForever);
-		progStateLocal = progState;
-	osMutexRelease(RegimeMutexHandle);
-	//========== END Update from mutex ==========//
+	  osMutexAcquire(RegimeMutexHandle, osWaitForever);
+	  progStateLocal = progState;
+	  osMutexRelease(RegimeMutexHandle);
 
 	if((progStateLocal != P_IDLE_START) && (progStateLocal != P_IDLE))
 	{
@@ -1507,15 +1504,12 @@ void StartSingleLEDTask(void *argument)
 
 		//========== Keep LED state for delay_time ===========//
 		osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
-			ledState = ledStateLocal;
+		ledState = ledStateLocal;
 		osMutexRelease(LED_FSM_MutexHandle);
 		//========== END Keep LED state for delay_time ===========//
 
 	}
-
-	//============ Keep LED state for delay_time or task delay execute =============//
 	osDelay(delay_time);
-	//===================== END  Keep LED state for delay_time =====================//
   }
   /* USER CODE END StartSingleLEDTask */
 }
