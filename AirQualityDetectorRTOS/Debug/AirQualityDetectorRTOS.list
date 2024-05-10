@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00011338  2**0
                   CONTENTS, READONLY
- 12 .debug_info   000216c8  00000000  00000000  00011368  2**0
+ 12 .debug_info   0002168a  00000000  00000000  00011368  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 0000528c  00000000  00000000  00032a30  2**0
+ 13 .debug_abbrev 0000528c  00000000  00000000  000329f2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00001a28  00000000  00000000  00037cc0  2**3
+ 14 .debug_aranges 00001a28  00000000  00000000  00037c80  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00001402  00000000  00000000  000396e8  2**0
+ 15 .debug_rnglists 00001402  00000000  00000000  000396a8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0002cde5  00000000  00000000  0003aaea  2**0
+ 16 .debug_macro  0002cde5  00000000  00000000  0003aaaa  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000258ee  00000000  00000000  000678cf  2**0
+ 17 .debug_line   000258ee  00000000  00000000  0006788f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00107061  00000000  00000000  0008d1bd  2**0
+ 18 .debug_str    00107031  00000000  00000000  0008d17d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0019421e  2**0
+ 19 .comment      00000043  00000000  00000000  001941ae  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00007e2c  00000000  00000000  00194264  2**2
+ 20 .debug_frame  00007e2c  00000000  00000000  001941f4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000087  00000000  00000000  0019c090  2**0
+ 21 .debug_line_str 00000082  00000000  00000000  0019c020  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -5093,9 +5093,6 @@ void StartMainTask(void *argument)
  80026f4:	4618      	mov	r0, r3
  80026f6:	f005 f8d7 	bl	80078a8 <osMutexRelease>
 
-	  		  // LED Blink logic //
-	  		  //osTimerStart(LEDTimerCallback,500);
-
 	  		  osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
  80026fa:	4b95      	ldr	r3, [pc, #596]	@ (8002950 <StartMainTask+0x2f8>)
  80026fc:	681b      	ldr	r3, [r3, #0]
@@ -5209,6 +5206,7 @@ void StartMainTask(void *argument)
 	  		  meassuring = true;
  80027a6:	2301      	movs	r3, #1
  80027a8:	75bb      	strb	r3, [r7, #22]
+
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
  80027aa:	4b66      	ldr	r3, [pc, #408]	@ (8002944 <StartMainTask+0x2ec>)
  80027ac:	681b      	ldr	r3, [r3, #0]
@@ -5260,6 +5258,7 @@ void StartMainTask(void *argument)
 	  		  meassuring = true;
  80027fe:	2301      	movs	r3, #1
  8002800:	75bb      	strb	r3, [r7, #22]
+
 	  		  osMutexAcquire(UARTMutexHandle, osWaitForever);
  8002802:	4b50      	ldr	r3, [pc, #320]	@ (8002944 <StartMainTask+0x2ec>)
  8002804:	681b      	ldr	r3, [r3, #0]
@@ -5308,24 +5307,25 @@ void StartMainTask(void *argument)
 		  break;
  8002854:	bf00      	nop
 	  }
-		  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
+
+	  osMutexAcquire(SystemWorkStateMutexHandle, osWaitForever);
  8002856:	4b40      	ldr	r3, [pc, #256]	@ (8002958 <StartMainTask+0x300>)
  8002858:	681b      	ldr	r3, [r3, #0]
  800285a:	f04f 31ff 	mov.w	r1, #4294967295
  800285e:	4618      	mov	r0, r3
  8002860:	f004 ffc4 	bl	80077ec <osMutexAcquire>
-		  if(progChangeState == PC_WORK_START)
+	  if(progChangeState == PC_WORK_START)
  8002864:	4b3d      	ldr	r3, [pc, #244]	@ (800295c <StartMainTask+0x304>)
  8002866:	781b      	ldrb	r3, [r3, #0]
  8002868:	2b01      	cmp	r3, #1
  800286a:	d102      	bne.n	8002872 <StartMainTask+0x21a>
-		  {
-			  progChangeState = PC_WORK;
+	  {
+		  progChangeState = PC_WORK;
  800286c:	4b3b      	ldr	r3, [pc, #236]	@ (800295c <StartMainTask+0x304>)
  800286e:	2202      	movs	r2, #2
  8002870:	701a      	strb	r2, [r3, #0]
-		  }
-	      osMutexRelease(SystemWorkStateMutexHandle);
+	  }
+	  osMutexRelease(SystemWorkStateMutexHandle);
  8002872:	4b39      	ldr	r3, [pc, #228]	@ (8002958 <StartMainTask+0x300>)
  8002874:	681b      	ldr	r3, [r3, #0]
  8002876:	4618      	mov	r0, r3
@@ -5377,7 +5377,7 @@ void StartMainTask(void *argument)
  80028c4:	f04f 31ff 	mov.w	r1, #4294967295
  80028c8:	4618      	mov	r0, r3
  80028ca:	f004 ff8f 	bl	80077ec <osMutexAcquire>
-				quality_status = false;
+			  quality_status = false;
  80028ce:	4b29      	ldr	r3, [pc, #164]	@ (8002974 <StartMainTask+0x31c>)
  80028d0:	2200      	movs	r2, #0
  80028d2:	701a      	strb	r2, [r3, #0]
@@ -5402,7 +5402,7 @@ void StartMainTask(void *argument)
  80028ec:	f04f 31ff 	mov.w	r1, #4294967295
  80028f0:	4618      	mov	r0, r3
  80028f2:	f004 ff7b 	bl	80077ec <osMutexAcquire>
-				quality_status = true;
+			  quality_status = true;
  80028f6:	4b1f      	ldr	r3, [pc, #124]	@ (8002974 <StartMainTask+0x31c>)
  80028f8:	2201      	movs	r2, #1
  80028fa:	701a      	strb	r2, [r3, #0]
@@ -5505,6 +5505,7 @@ void StartTerminalTask(void *argument)
  80029b2:	f7fe fe91 	bl	80016d8 <UART_TransmitString>
 			  ClearRxBuffer();
  80029b6:	f7fe ffb7 	bl	8001928 <ClearRxBuffer>
+
 			  osMutexAcquire(UARTMutexHandle, osWaitForever);
  80029ba:	4b6b      	ldr	r3, [pc, #428]	@ (8002b68 <StartTerminalTask+0x1ec>)
  80029bc:	681b      	ldr	r3, [r3, #0]
@@ -5521,6 +5522,7 @@ void StartTerminalTask(void *argument)
  80029d4:	681b      	ldr	r3, [r3, #0]
  80029d6:	4618      	mov	r0, r3
  80029d8:	f004 ff66 	bl	80078a8 <osMutexRelease>
+
 			  progStateLocal = P_IDLE;
  80029dc:	2301      	movs	r3, #1
  80029de:	75fb      	strb	r3, [r7, #23]
@@ -5634,8 +5636,6 @@ void StartTerminalTask(void *argument)
 						UART_TransmitString(FAN_ON);
  8002a90:	483a      	ldr	r0, [pc, #232]	@ (8002b7c <StartTerminalTask+0x200>)
  8002a92:	f7fe fe21 	bl	80016d8 <UART_TransmitString>
-
-
 						progStateLocal = P_IDLE;
  8002a96:	2301      	movs	r3, #1
  8002a98:	75fb      	strb	r3, [r7, #23]
@@ -5802,10 +5802,10 @@ void StartTerminalTask(void *argument)
 
 						break;
  8002b36:	bf00      	nop
+						// reserved
+
 						break;
 				}
-
-				//ClearRxBuffer();
 
 				osMutexAcquire(RegimeMutexHandle, osWaitForever);
  8002b38:	4b12      	ldr	r3, [pc, #72]	@ (8002b84 <StartTerminalTask+0x208>)
@@ -5825,8 +5825,8 @@ void StartTerminalTask(void *argument)
 		  }
 	  }
 
-    osDelay(100);
- 8002b56:	2064      	movs	r0, #100	@ 0x64
+    osDelay(10);
+ 8002b56:	200a      	movs	r0, #10
  8002b58:	f004 fca6 	bl	80074a8 <osDelay>
 	  if(IsTransferComplete() == true)
  8002b5c:	e712      	b.n	8002984 <StartTerminalTask+0x8>
@@ -5855,7 +5855,7 @@ void StartButtonTask(void *argument)
  8002b90:	af00      	add	r7, sp, #0
  8002b92:	6078      	str	r0, [r7, #4]
   /* USER CODE BEGIN StartButtonTask */
-  /* Infinite loop */
+	//Setup code
 	bool read_button_flag = true;
  8002b94:	2301      	movs	r3, #1
  8002b96:	73bb      	strb	r3, [r7, #14]
@@ -5863,6 +5863,7 @@ void StartButtonTask(void *argument)
  8002b98:	2300      	movs	r3, #0
  8002b9a:	73fb      	strb	r3, [r7, #15]
 
+  /* Infinite loop */
   for(;;)
   {
 	press_button_flag = ReadSignal(&read_button_flag);
@@ -5928,7 +5929,7 @@ void StartSingleLEDTask(void *argument)
  8002c00:	af00      	add	r7, sp, #0
  8002c02:	6078      	str	r0, [r7, #4]
   /* USER CODE BEGIN StartSingleLEDTask */
-
+	//Setup code
 	LED_StatusFSM ledStateLocal;
 	bool quality_status_local;
 	ProgramStateFSM progStateLocal;
@@ -5942,56 +5943,53 @@ void StartSingleLEDTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-
-	//============ Update from mutex ============//
-	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
+	  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
  8002c0c:	4b4e      	ldr	r3, [pc, #312]	@ (8002d48 <StartSingleLEDTask+0x14c>)
  8002c0e:	681b      	ldr	r3, [r3, #0]
  8002c10:	f04f 31ff 	mov.w	r1, #4294967295
  8002c14:	4618      	mov	r0, r3
  8002c16:	f004 fde9 	bl	80077ec <osMutexAcquire>
-		quality_status_local = quality_status;
+	  quality_status_local = quality_status;
  8002c1a:	4b4c      	ldr	r3, [pc, #304]	@ (8002d4c <StartSingleLEDTask+0x150>)
  8002c1c:	781b      	ldrb	r3, [r3, #0]
  8002c1e:	72fb      	strb	r3, [r7, #11]
-	osMutexRelease(LED_Blink_MutexHandle);
+	  osMutexRelease(LED_Blink_MutexHandle);
  8002c20:	4b49      	ldr	r3, [pc, #292]	@ (8002d48 <StartSingleLEDTask+0x14c>)
  8002c22:	681b      	ldr	r3, [r3, #0]
  8002c24:	4618      	mov	r0, r3
  8002c26:	f004 fe3f 	bl	80078a8 <osMutexRelease>
 
-	osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
+	  osMutexAcquire(LED_FSM_MutexHandle, osWaitForever);
  8002c2a:	4b49      	ldr	r3, [pc, #292]	@ (8002d50 <StartSingleLEDTask+0x154>)
  8002c2c:	681b      	ldr	r3, [r3, #0]
  8002c2e:	f04f 31ff 	mov.w	r1, #4294967295
  8002c32:	4618      	mov	r0, r3
  8002c34:	f004 fdda 	bl	80077ec <osMutexAcquire>
-		ledStateLocal = ledState;
+	  ledStateLocal = ledState;
  8002c38:	4b46      	ldr	r3, [pc, #280]	@ (8002d54 <StartSingleLEDTask+0x158>)
  8002c3a:	781b      	ldrb	r3, [r3, #0]
  8002c3c:	73fb      	strb	r3, [r7, #15]
-	osMutexRelease(LED_FSM_MutexHandle);
+	  osMutexRelease(LED_FSM_MutexHandle);
  8002c3e:	4b44      	ldr	r3, [pc, #272]	@ (8002d50 <StartSingleLEDTask+0x154>)
  8002c40:	681b      	ldr	r3, [r3, #0]
  8002c42:	4618      	mov	r0, r3
  8002c44:	f004 fe30 	bl	80078a8 <osMutexRelease>
 
-	osMutexAcquire(RegimeMutexHandle, osWaitForever);
+	  osMutexAcquire(RegimeMutexHandle, osWaitForever);
  8002c48:	4b43      	ldr	r3, [pc, #268]	@ (8002d58 <StartSingleLEDTask+0x15c>)
  8002c4a:	681b      	ldr	r3, [r3, #0]
  8002c4c:	f04f 31ff 	mov.w	r1, #4294967295
  8002c50:	4618      	mov	r0, r3
  8002c52:	f004 fdcb 	bl	80077ec <osMutexAcquire>
-		progStateLocal = progState;
+	  progStateLocal = progState;
  8002c56:	4b41      	ldr	r3, [pc, #260]	@ (8002d5c <StartSingleLEDTask+0x160>)
  8002c58:	781b      	ldrb	r3, [r3, #0]
  8002c5a:	72bb      	strb	r3, [r7, #10]
-	osMutexRelease(RegimeMutexHandle);
+	  osMutexRelease(RegimeMutexHandle);
  8002c5c:	4b3e      	ldr	r3, [pc, #248]	@ (8002d58 <StartSingleLEDTask+0x15c>)
  8002c5e:	681b      	ldr	r3, [r3, #0]
  8002c60:	4618      	mov	r0, r3
  8002c62:	f004 fe21 	bl	80078a8 <osMutexRelease>
-	//========== END Update from mutex ==========//
 
 	if((progStateLocal != P_IDLE_START) && (progStateLocal != P_IDLE))
  8002c66:	7abb      	ldrb	r3, [r7, #10]
@@ -6149,7 +6147,7 @@ void StartSingleLEDTask(void *argument)
  8002d22:	f04f 31ff 	mov.w	r1, #4294967295
  8002d26:	4618      	mov	r0, r3
  8002d28:	f004 fd60 	bl	80077ec <osMutexAcquire>
-			ledState = ledStateLocal;
+		ledState = ledStateLocal;
  8002d2c:	4a09      	ldr	r2, [pc, #36]	@ (8002d54 <StartSingleLEDTask+0x158>)
  8002d2e:	7bfb      	ldrb	r3, [r7, #15]
  8002d30:	7013      	strb	r3, [r2, #0]
@@ -6161,13 +6159,11 @@ void StartSingleLEDTask(void *argument)
 		//========== END Keep LED state for delay_time ===========//
 
 	}
-
-	//============ Keep LED state for delay_time or task delay execute =============//
 	osDelay(delay_time);
  8002d3c:	89bb      	ldrh	r3, [r7, #12]
  8002d3e:	4618      	mov	r0, r3
  8002d40:	f004 fbb2 	bl	80074a8 <osDelay>
-	osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
+	  osMutexAcquire(LED_Blink_MutexHandle, osWaitForever);
  8002d44:	e762      	b.n	8002c0c <StartSingleLEDTask+0x10>
  8002d46:	bf00      	nop
  8002d48:	200004ec 	.word	0x200004ec
